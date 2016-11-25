@@ -199,6 +199,50 @@
             ]
         },
         {
+            "names": [ "pme", "pmeul", "htc_pmeul", "pmeuhl", "htc_pmeuhl", "pmewhl", "htc_pmewhl", "pmewl", "htc_pmewl" ],
+            "manifest_url": "http://multirom-htc.github.io/pme/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/bootdevice/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/bootdevice/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/bootdevice/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "hima", "himaul", "htc_himaul", "himauhl", "htc_himauhl", "himamhl", "htc_himawhl", "himawl", "htc_himawl" ],
+            "manifest_url": "http://multirom-htc.github.io/hima/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/bootdevice/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/bootdevice/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/bootdevice/by-name/cache"
+                }
+            ]
+        },
+        {
              "names": [ "htc_m8", "m8", "m8ul", "m8whl", "m8wl", "m8spr", "m8vzw", "htc_m8whl", "htc_m8wl", "m8_ul", "m8_whl", "m8_wl" ],
              "manifest_url": "http://multirom-htc.github.io/manifest.json",
              "check_gpg": false,
