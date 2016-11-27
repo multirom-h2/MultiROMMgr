@@ -34,8 +34,12 @@ import eu.chainfire.libsuperuser.Shell;
 public class Recovery {
     private static final String TAG = "MROMMgr::Recovery";
 
-    public static final DateFormat VER_FMT = new SimpleDateFormat("'mrom'yyyyMMdd-mm");
+    public static final DateFormat VER_FULL_FMT = new SimpleDateFormat("'mrom'yyyyMMdd-mm");
+    public static final DateFormat VER_SHORT_FMT = new SimpleDateFormat("'mrom'yyyyMMdd");
+    public static DateFormat VER_FMT = VER_FULL_FMT;
     public static final DateFormat DISPLAY_FMT = new SimpleDateFormat("yyyy-MM-dd (m)");
+
+    private Date m_version;
 
     public boolean findRecoveryVersion(Device dev) {
         String p = Utils.extractAsset("bbootimg");
@@ -67,7 +71,13 @@ public class Recovery {
             o = o.getJSONObject("boot_img_hdr");
             String name = o.getString("name");
 
-            m_version = VER_FMT.parse(name);
+            if (name.length() > 12) {
+                m_version = VER_FULL_FMT.parse(name);
+                VER_FMT = VER_FULL_FMT;
+            } else {
+                m_version = VER_SHORT_FMT.parse(name);
+                VER_FMT = VER_SHORT_FMT;
+            }
 
             Log.d(TAG, "Got recovery version " + m_version.toString());
             return true;
@@ -87,6 +97,4 @@ public class Recovery {
     public Date getVersion() {
         return m_version;
     }
-
-    private Date m_version;
 }
