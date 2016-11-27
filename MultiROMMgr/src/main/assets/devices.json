@@ -744,6 +744,75 @@
                     "path": "/dev/block/platform/msm_sdcc.1/by-name/Cache"
                 }
             ]
+        },
+        {
+            "names": [ "hayabusa", "LT29i" ],
+            "manifest_url": "",
+            "check_gpg": false,
+            "kexec_check_path": "/sys/kernel/kexec_loaded",
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/FOTAKernel"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/Kernel"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/Cache"
+                }
+            ]
+        },
+        {
+            "names": [ "mint", "LT30p" ],
+            "manifest_url": "",
+            "check_gpg": false,
+            "kexec_check_path": "/sys/kernel/kexec_loaded",
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/FOTAKernel"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/Kernel"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/Cache"
+                }
+            ]
+        },
+        {
+            "names": [ "tsubasa", "LT25i" ],
+            "manifest_url": "",
+            "check_gpg": false,
+            "kexec_check_path": "/sys/kernel/kexec_loaded",
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/FOTAKernel"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/Kernel"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/Cache"
+                }
+            ]
         }
     ]
 }
