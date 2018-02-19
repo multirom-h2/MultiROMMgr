@@ -26,7 +26,7 @@ deploy:
   skip_cleanup: true
   provider: releases
   api_key: "$GIT_OAUTH_TOKEN_TB"
-  file: "./app/build/outputs/apk/release/app-release.apk"
+  file: "./MultiROMMgr/build/outputs/apk/debug/MultiROMMgr-debug.apk"
   on:
     repo: multirom-h2/MultiROMMgr
 before_install:
