@@ -55,14 +55,14 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
 
         View v = inflater.inflate(R.layout.fragment_rom_boot, container, false);
 
-        Button cancelBtn = (Button)v.findViewById(R.id.cancel_btn);
+        Button cancelBtn = (Button) v.findViewById(R.id.cancel_btn);
         cancelBtn.setOnClickListener(this);
-        Button bootBtn = (Button)v.findViewById(R.id.boot_btn);
+        Button bootBtn = (Button) v.findViewById(R.id.boot_btn);
         bootBtn.setOnClickListener(this);
 
-        TextView t = (TextView)v.findViewById(R.id.dialog_text);
+        TextView t = (TextView) v.findViewById(R.id.dialog_text);
         MultiROM m = StatusAsyncTask.instance().getMultiROM();
-        if(m != null && !m.hasBootRomReqMultiROM()) {
+        if (m != null && !m.hasBootRomReqMultiROM()) {
             t.setText(Utils.getString(R.string.rom_boot_req_ver, MultiROM.MIN_BOOT_ROM_VER));
             bootBtn.setVisibility(View.GONE);
         } else {
@@ -73,29 +73,27 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.cancel_btn:
-            {
+        switch (view.getId()) {
+            case R.id.cancel_btn: {
                 Activity a = getActivity();
-                if(a instanceof RomBootActivity)
+                if (a instanceof RomBootActivity)
                     a.finish();
                 else
                     dismiss();
                 break;
             }
-            case R.id.boot_btn:
-            {
+            case R.id.boot_btn: {
                 View v = getView();
                 Rom rom = getArguments().getParcelable("rom");
 
                 setCancelable(false);
 
-                TextView t = (TextView)v.findViewById(R.id.dialog_text);
+                TextView t = (TextView) v.findViewById(R.id.dialog_text);
                 t.setText(R.string.booting);
 
-                Button b = (Button)v.findViewById(R.id.cancel_btn);
+                Button b = (Button) v.findViewById(R.id.cancel_btn);
                 b.setEnabled(false);
-                b = (Button)v.findViewById(R.id.boot_btn);
+                b = (Button) v.findViewById(R.id.boot_btn);
                 b.setEnabled(false);
 
                 new Thread(new RomBootRunnable(rom)).start();
@@ -106,6 +104,7 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
 
     private class RomBootRunnable implements Runnable {
         private Rom m_rom;
+
         public RomBootRunnable(Rom rom) {
             m_rom = rom;
         }
@@ -113,19 +112,19 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
         @Override
         public void run() {
             Activity a = getActivity();
-            if(a == null)
+            if (a == null)
                 return;
 
             MultiROM m = StatusAsyncTask.instance().getMultiROM();
             boolean has_kexec = StatusAsyncTask.instance().hasKexecKernel();
-            if(m == null) {
+            if (m == null) {
                 m = new MultiROM();
-                if(!m.findMultiROMDir() || !m.findVersion()) {
+                if (!m.findMultiROMDir() || !m.findVersion()) {
                     a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_failed));
                     return;
                 }
 
-                if(!m.hasBootRomReqMultiROM()) {
+                if (!m.hasBootRomReqMultiROM()) {
                     a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_req_ver,
                             MultiROM.MIN_BOOT_ROM_VER));
                     return;
@@ -133,7 +132,7 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
 
                 SharedPreferences p = MgrApp.getPreferences();
                 Device dev = Device.load(p.getString(SettingsFragment.DEV_DEVICE_NAME, Build.DEVICE));
-                if(dev == null) {
+                if (dev == null) {
                     a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_failed));
                     return;
                 }
@@ -142,25 +141,29 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
                 has_kexec = k.findKexecHardboot(dev);
             }
 
-            if(!m.no_kexec()) {
-                if(!has_kexec && m.isKexecNeededFor(m_rom)) {
-            if(!has_kexec && m.isKexecNeededFor(m_rom)) {
-                if (!m.findNokexecSupported()) {
-                        a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_kexec));
-                        return;
-                } else {
-                        a.runOnUiThread(new SetNokexecTextRunnable(R.string.rom_boot_nokexec));
+            if (!m.no_kexec()) {
+                if (!has_kexec && m.isKexecNeededFor(m_rom)) {
+                    if (!has_kexec && m.isKexecNeededFor(m_rom)) {
+                        if (!m.findNokexecSupported()) {
+                            a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_kexec));
+                            return;
+                        } else {
+                            a.runOnUiThread(new SetNokexecTextRunnable(R.string.rom_boot_nokexec));
+                        }
+                    }
+                    // this won't return unless it fails
+                    m.bootRom(m_rom);
+
+                    a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_failed));
                 }
             }
-            // this won't return unless it fails
-            m.bootRom(m_rom);
 
-            a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_failed));
         }
     }
 
     private class SetErrorTextRunnable implements Runnable {
         private String m_text;
+
         public SetErrorTextRunnable(int text_fmt, Object... args) {
             m_text = Utils.getString(text_fmt, args);
         }
@@ -170,20 +173,21 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
             setCancelable(true);
 
             View v = getView();
-            if(v != null) {
-                TextView t = (TextView)v.findViewById(R.id.dialog_text);
+            if (v != null) {
+                TextView t = (TextView) v.findViewById(R.id.dialog_text);
                 t.setText(m_text);
 
-                Button b = (Button)v.findViewById(R.id.cancel_btn);
+                Button b = (Button) v.findViewById(R.id.cancel_btn);
                 b.setEnabled(true);
-                b = (Button)v.findViewById(R.id.boot_btn);
+                b = (Button) v.findViewById(R.id.boot_btn);
                 b.setVisibility(View.GONE);
             }
         }
     }
 
-    private class SetNokexecTextRunnable implements Runnable {
+   private class SetNokexecTextRunnable implements Runnable {
         private String m_text;
+
         public SetNokexecTextRunnable(int text_fmt, Object... args) {
             m_text = Utils.getString(text_fmt, args);
         }
@@ -193,13 +197,13 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
             setCancelable(true);
 
             View v = getView();
-            if(v != null) {
-                TextView t = (TextView)v.findViewById(R.id.dialog_text);
+            if (v != null) {
+                TextView t = (TextView) v.findViewById(R.id.dialog_text);
                 t.setText(m_text);
 
-                Button b = (Button)v.findViewById(R.id.cancel_btn);
+                Button b = (Button) v.findViewById(R.id.cancel_btn);
                 b.setVisibility(View.GONE);
-                b = (Button)v.findViewById(R.id.boot_btn);
+                b = (Button) v.findViewById(R.id.boot_btn);
                 b.setEnabled(true);
             }
         }
