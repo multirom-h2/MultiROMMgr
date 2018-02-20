@@ -57,13 +57,13 @@ public class MultiROM {
 
     public boolean findMultiROMDir() {
         List<String> out = Shell.SU.run(
-                "folders=\"/data/media/0/multirom/ /data/media/multirom/\";" +
-                "for f in $folders; do" +
-                "    if [ -d \"$f\" ]; then" +
-                "        echo \"$f\";" +
-                "        exit 0;" +
-                "    fi;" +
-                "done;");
+                "folders=\"/data/media/0/multirom/ /data/media/multirom/ /data/media/0/MultiROM/multirom/\";" +
+                        "for f in $folders; do" +
+                        "    if [ -d \"$f\" ]; then" +
+                        "        echo \"$f\";" +
+                        "        exit 0;" +
+                        "    fi;" +
+                        "done;");
 
         if (out == null || out.isEmpty())
             return false;
