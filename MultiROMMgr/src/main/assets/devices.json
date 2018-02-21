@@ -1,6 +1,28 @@
 {
             "devices": [
                 {
+                    "names": [ "hydrogen", "helium", "MIMAX", "MIMAX652" ],
+                    "manifest_url": "https://github.com/multirom-h2/multirom-mimax/raw/hydrogen/manifest.json",
+                    "check_gpg": false,
+                    "ubuntu_touch": {
+                        "enabled": false
+                    },
+                    "devices": [
+                    {
+                            "name": "recovery",
+                            "path": "/dev/block/bootdevice/by-name/recovery"
+                        },
+                        {
+                            "name": "boot",
+                            "path": "/dev/block/bootdevice/by-name/boot"
+                        },
+                        {
+                            "name": "cache",
+                            "path": "/dev/block/bootdevice/by-name/cache"
+                        }
+            ]
+                },
+                {
                     "names": [ "garlic", "yu5040" ],
                     "manifest_url": "https://twrpbuilder.firebaseapp.com/app/manifest.json",
                     "check_gpg": false,
