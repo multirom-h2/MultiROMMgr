@@ -1,33 +1,31 @@
 language: android
 android:
   components:
-    - tools
-    - platform-tools
-    - build-tools-27.0.3
-    - android-27
-    - add-on
-    - extra
+  - tools
+  - platform-tools
+  - build-tools-27.0.3
+  - android-27
+  - add-on
+  - extra
 licenses:
-    - 'android-sdk-license-.+'
-
+- android-sdk-license-.+
 jdk:
 - oraclejdk8
 script: "./gradlew build && find -type f -name *.apk"
-
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 deploy:
   skip_cleanup: true
   provider: releases
-  api_key: "$GIT_OAUTH_TOKEN_TB"
+  api_key:
+    secure: fVACGEWqaugfalT/e8Zax9XGlXdvODHoD8tBFQKZ5fW7k4PuI4PFn8tUxtTI2yry09PpQm2DL9+Y2kcUcZ2lDnOMU4srUYI0c9C2hsBtEiQHB0DIxWJEUEcdiDjS5VuOT7fbWpJmzkjefeo014oYzEEjz4tHCbCxgmFvglFcAw/KpP0USIo49ZEOMxTHW0mgX4vwaScwC3Heu6htvZ6ybRCaQeG/CaQjxOWjk6R/L7KWCv8LmkyH7XLgSmeLKU4voHiHLV/WgWh7+N/KI9DKqWKm0ddLVrjvl9w3wgHNW48EPRhwpU30Iq3Qyk4YBziutG1kneRuwu90WSM9KFW+VPpuiew48l3YQZzEB3M5skkTo/orXS622zXcHZ+o13OUQNhNfZKnFj02Y6K1KprkzQRI1Z6bTywGx2Pex2OlnuNI144GJITp6La0jPk/8iqGxYo4G/SWnUzsngP8w0rLDmMGLP3sGcmBGJOwb8aNfdulwv8IME5uuYb64YmkYbpvzqhJgWM3AnAcMD3kbz20kjAcSbuA7rJITqYJ+c1Hdgd/fnGAh52rdf9xxB6SZD4OBA6CEd0UqVXbM8JgWUrKHZ+HK4nhHfoGzk8rRjj/17u/hM4Zmm9Py0hSsiYEvI20tqqToICCj8gIiw2GPa3s29KMLVS5IQbwQDwm1GZmexc=
   file: "./MultiROMMgr/build/outputs/apk/debug/MultiROMMgr-debug.apk"
   on:
-    repo: multirom-h2/MultiROMMgr
+    repo: multirom-garlic/MultiROMMgr
 before_install:
-      - yes | sdkmanager "platforms;android-27"
+- yes | sdkmanager "platforms;android-27"
