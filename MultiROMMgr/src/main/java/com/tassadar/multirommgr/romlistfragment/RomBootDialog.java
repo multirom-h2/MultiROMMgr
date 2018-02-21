@@ -141,9 +141,8 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
                 has_kexec = k.findKexecHardboot(dev);
             }
 
-            if (!m.no_kexec()) {
-                if (!has_kexec && m.isKexecNeededFor(m_rom)) {
-                    if (!has_kexec && m.isKexecNeededFor(m_rom)) {
+            if (!has_kexec) {
+                    if (!m.no_kexec() && m.isKexecNeededFor(m_rom)) {
                         if (!m.findNokexecSupported()) {
                             a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_kexec));
                             return;
@@ -155,7 +154,6 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
                     m.bootRom(m_rom);
 
                     a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_failed));
-                }
             }
 
         }

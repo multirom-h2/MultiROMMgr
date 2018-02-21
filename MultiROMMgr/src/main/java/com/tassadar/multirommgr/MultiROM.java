@@ -157,11 +157,6 @@ public class MultiROM {
         return INTERNAL_ROM;
     }
 
-    public boolean find_no_kexec() {
-        findInternalRomName();
-        return m_no_kexec;
-    }
-
     public void findRoms() {
         String internal = findInternalRomName();
 

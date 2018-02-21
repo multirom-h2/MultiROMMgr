@@ -49,7 +49,7 @@ public class Kernel {
                     dev.getKexecCheckPath(), busybox);
         } else {
             out = Shell.SU.run(
-                    "if [ -f /proc/atags ] || [ -d /proc/device-tree ] || [ \"$(\"%s\" grep mrom_kexecd=1 /proc/cmdline)\" ]; then" +
+                    "if [ -f /proc/atags ] || [ \"$(\"%s\" grep mrom_kexecd=1 /proc/cmdline)\" ]; then" +
                     "    echo has_kexec;" +
                     "    exit 0;" +
                     "fi;",
